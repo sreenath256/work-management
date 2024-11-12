@@ -32,13 +32,10 @@ const TodaysWork = () => {
 
   return (
     <div className="w-full">
-      <div className="  overflow-y-scroll h-screen no-scrollbar flex justify-start items-start pt-28  ">
-        
+      <div className="  overflow-y-scroll h-screen no-scrollbar grid grid-cols-1 lg:grid-cols-2  w-full gap-3 pt-28 p-5  ">
         {selectedProject ? (
           selectedProject.map((singleTask, index) => (
-            <div key={index} className="flex flex-wrap gap-7 py-5 pl-2  ">
-              <TodayTaskTable task={singleTask} />
-            </div>
+            <TodayTaskTable key={index} task={singleTask} />
           ))
         ) : (
           <h1>No works for today</h1>

@@ -412,11 +412,10 @@ export const SubTask = ({
         if (header.key === "task") {
           return;
         } else if (header.key === "client") {
-          
           return (
             <SelectComponent
               key={header._id}
-              currentValue={subTask.status}
+              currentValue={subTask.client}
               valueGroup={statusGroup}
               updateSubTaskOption={updateSubTaskOption}
               headerType={"status"}

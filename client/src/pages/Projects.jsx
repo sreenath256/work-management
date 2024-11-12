@@ -275,6 +275,10 @@ const Projects = () => {
       ]);
 
     console.log("Project =>", project);
+    console.log("Status =>", status);
+    console.log("priority =>", priority);
+    console.log("permissions =>", permissions);
+    console.log("allHeaders =>", allHeaders);
 
     if (project?.status) {
       setSelectedProject(project.data);
@@ -802,6 +806,10 @@ const Projects = () => {
 
   const taskArrangePopupHandler = () =>
     setOpenTaskArrangePopup((previous) => !previous);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="mt-20 p-5 w-full h-[calc(100vh-5.5rem)] overflow-y-hidden">

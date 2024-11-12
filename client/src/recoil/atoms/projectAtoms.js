@@ -36,6 +36,11 @@ export const statusOptionsAtom = atom({
     default: []
 })
 
+export const clientOptionsAtom = atom({
+    key:"clientOptionsAtom",
+    default: []
+})
+
 export const priorityOptionsAtom = atom({
     key:"priorityOptionsAtom",
     default: []

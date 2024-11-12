@@ -429,16 +429,10 @@ export const TaskTable = ({
                   {singleTable?.headers?.map((header) => {
                     if (header.key === "task") {
                       return;
-                    } else if (header.key === "client") {
+                    }  else if (header.key === "status") {
                       return (
                         <th key={header._id} className="w-36 border-l pt-2">
-                          Client
-                        </th>
-                      );
-                    } else if (header.key === "status") {
-                      return (
-                        <th key={header._id} className="w-36 border-l pt-2">
-                          Status
+                          Status  
                         </th>
                       );
                     } else if (header.key === "dueDate") {

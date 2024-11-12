@@ -20,6 +20,7 @@ const SignInSignUp = lazy(() => import("./pages/SignInSignUp"));
 const Projects = lazy(() => import("./pages/Projects"));
 const UserPermissions = lazy(() => import("./pages/UserPermissions"));
 const Error = lazy(() => import("./pages/ErrorPage"));
+const AddClients = lazy(() => import("./pages/AddClients"));
 
 const Layout = () => {
   const [activeBanner, setActiveBanner] = useRecoilState(activeBannerAtom);
@@ -85,6 +86,20 @@ function App() {
               }
             >
               {token ? <MyWorks /> : <SignInSignUp />}
+            </Suspense>
+          ),
+        },
+        {
+          path: "/add-clients",
+          element: (
+            <Suspense
+              fallback={
+                <p className="h-screen text-center w-full grid place-items-center text-white">
+                  Loading....
+                </p>
+              }
+            >
+              {token ? <AddClients /> : <SignInSignUp />}
             </Suspense>
           ),
         },

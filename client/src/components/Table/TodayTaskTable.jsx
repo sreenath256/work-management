@@ -26,12 +26,14 @@ const TodayTaskTable = ({ task }) => {
 
   const getPriorityColor = (priority) => {
     switch (priority.toLowerCase()) {
+      case "critical":
+        return "bg-[#cd0000] text-white";
       case "high":
-        return "bg-red-500 text-white";
+        return "bg-[#ff4000] text-white";
       case "normal":
-        return "bg-blue-500 text-white";
-      case "low":
-        return "bg-green-500 text-white";
+        return "bg-[#28c900] text-white";
+      case "medium":
+        return "bg-[#d6cf02] text-white";
       default:
         return "bg-gray-400 text-white";
     }
@@ -39,12 +41,22 @@ const TodayTaskTable = ({ task }) => {
 
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
-      case "completed":
-        return "bg-green-500 text-white";
-      case "in progress":
-        return "bg-yellow-500 text-white";
+      case "working on it":
+        return "bg-[#ff8400] text-white";
+      case "rework":
+        return "bg-[#9e01b8] text-white";
+      case "finalizing":
+        return "bg-[#0d9f00] text-white";
+      case "waiting for content":
+        return "bg-[#007fc7] text-white";
+      case "done":
+        return "bg-[#7add2c] text-white";
+      case "content done":
+        return "bg-[#04e09e] text-white";
+      case "waiting for approval":
+        return "bg-[#ff0090] text-white";
       case "not started":
-        return "bg-gray-400 text-white";
+        return "bg-[#dadada] text-white";
       default:
         return "bg-gray-400 text-white";
     }
@@ -53,7 +65,7 @@ const TodayTaskTable = ({ task }) => {
   return (
     <>
       {tasks.length !== 0 && (
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white rounded-lg shadow-md p-6 h-fit">
           <div className="flex items-center mb-4">
             <img
               src={user.profilePhotoURL}

@@ -84,7 +84,7 @@ const Sidebar = () => {
             <li
               onClick={() => navigation("/today-works")}
               className={`hover:text-black hover:bg-[#aefe007e]  px-2 p-1 rounded-md ${
-                pathname === "/todays-work" &&
+                pathname === "/today-works" &&
                 "text-black bg-maingreen hover:bg-maingreenhvr"
               }`}
             >
@@ -102,6 +102,15 @@ const Sidebar = () => {
                 <div className="absolute w-1 h-3 left-2 -bottom-2 border-l border-black"></div>
               ) : null}
             </li>
+            {/* <li
+              onClick={() => navigation("/add-clients")}
+              className={`hover:text-black hover:bg-[#aefe007e]  px-2 p-1 rounded-md ${
+                pathname === "/add-clients" &&
+                "text-black bg-maingreen hover:bg-maingreenhvr"
+              }`}
+            >
+              Add clients
+            </li> */}
             {openProjects && (
               <div className="max-h-96 overflow-y-scroll no-scrollbar">
                 <div className="ml-4 w-20">
