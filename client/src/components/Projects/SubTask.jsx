@@ -13,6 +13,7 @@ import { SelectComponent } from "./elements/SelectComponent";
 import { InputComponent } from "../Home/InputComponent";
 import { toast } from "react-toastify";
 import {
+  updateClient,
   updatePriority,
   updateStatus,
   updateSubTaskName,
@@ -38,6 +39,7 @@ import {
 } from "../../recoil/atoms/liveUpdationAtoms";
 import { userDataAtom } from "../../recoil/atoms/userAtoms";
 
+import SelectClient from "./elements/SelectClient";
 export const SubTask = ({
   projectId,
   subTask,
@@ -58,6 +60,7 @@ export const SubTask = ({
   onDragStart,
   onDragOver,
   onDrop,
+  clientGroup,
 }) => {
   const user = useRecoilValue(userDataAtom);
   const setSelectedProject = useSetRecoilState(currentProjectAtom);
@@ -323,7 +326,28 @@ export const SubTask = ({
       } else {
         toast.error(response.message);
       }
-    } else {
+    } else if (headerType === "client") {
+      const response = await updateClient(projectId, subTask._id, option);
+      console.log("Option from update function", option);
+
+      if (response?.status) {
+        setLiveUpdationStatusPriority({
+          projectId,
+          taskId,
+          subTaskId: subTask._id,
+          field: "client",
+          value: option,
+          notification: {
+            ...response.notification,
+            assignerName: user.userName,
+            assignerImg: user.profilePhotoURL,
+          },
+        });
+      } else {
+        toast.error(response.message);
+      }
+    }
+    {
       if (headerType === "priority") {
         const response = await updatePriority(projectId, subTask._id, option);
         if (response?.status) {
@@ -364,61 +388,62 @@ export const SubTask = ({
           className="w-3 h-3 rounded cursor-pointer"
         />
       </td>
-      <td
-        onDoubleClick={openEditNameInput}
-        className={`${
-          nameError && "outline-2 h-full outline-dashed outline-red-600"
-        } ${classes} sticky z-10 left-14 bg-white group-hover:bg-[#aefe00] cursor-pointer p-0 outline outline-1 outline-blue-gray-200`}
-      >
-        <div className="flex justify-between h-8">
-          <div className="relative group px-2.5 h-full py-1">
-            {editToggle ? (
-              <InputComponent
-                subTaskName={subTaskName}
-                setSubTaskName={setSubTaskName}
-                updateName={updateName}
-              />
-            ) : (
-              <p
-                className={`whitespace-nowrap overflow-hidden overflow-ellipsis capitalize`}
-              >
-                {subTaskName}
-              </p>
-            )}
-          </div>
-
-          <div
-            onClick={openChatBox}
-            className="border-l border-blue-gray-200 flex justify-center items-center w-16"
-          >
-            <div className="relative">
-              <HiOutlineChatBubbleOvalLeft className={`w-6 h-6`} />
-              {subTask.isChatExists && (
-                <span className="bg-green-500 absolute top-1 right-0 rounded-full p-1"></span>
-              )}
-              {subTask?.chatUnreadCount ? (
-                <div className="absolute top-0 -right-1 rounded-full w-4 h-4 flex items-center justify-center text-white bg-green-500">
-                  <p className="text-center p-[2px] whitespace-nowrap overflow-hidden overflow-ellipsis text-[9px]">
-                    {subTask.chatUnreadCount}
-                  </p>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </td>
 
       {headers?.map((header) => {
         if (header.key === "task") {
-          return;
+          return (
+            <td
+              onDoubleClick={openEditNameInput}
+              className={`${
+                nameError && "outline-2 h-full outline-dashed outline-red-600"
+              } ${classes} sticky z-10 left-14 bg-white group-hover:bg-[#aefe00] cursor-pointer p-0 outline outline-1 outline-blue-gray-200`}
+            >
+              <div className="flex justify-between h-8">
+                <div className="relative group px-2.5 h-full py-1">
+                  {editToggle ? (
+                    <InputComponent
+                      subTaskName={subTaskName}
+                      setSubTaskName={setSubTaskName}
+                      updateName={updateName}
+                    />
+                  ) : (
+                    <p
+                      className={`whitespace-nowrap overflow-hidden overflow-ellipsis capitalize`}
+                    >
+                      {subTaskName}
+                    </p>
+                  )}
+                </div>
+
+                <div
+                  onClick={openChatBox}
+                  className="border-l border-blue-gray-200 flex justify-center items-center w-16"
+                >
+                  <div className="relative">
+                    <HiOutlineChatBubbleOvalLeft className={`w-6 h-6`} />
+                    {subTask.isChatExists && (
+                      <span className="bg-green-500 absolute top-1 right-0 rounded-full p-1"></span>
+                    )}
+                    {subTask?.chatUnreadCount ? (
+                      <div className="absolute top-0 -right-1 rounded-full w-4 h-4 flex items-center justify-center text-white bg-green-500">
+                        <p className="text-center p-[2px] whitespace-nowrap overflow-hidden overflow-ellipsis text-[9px]">
+                          {subTask.chatUnreadCount}
+                        </p>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </td>
+          );
         } else if (header.key === "client") {
           return (
-            <SelectComponent
+            <SelectClient
               key={header._id}
               currentValue={subTask.client}
-              valueGroup={statusGroup}
+              valueGroup={clientGroup}
               updateSubTaskOption={updateSubTaskOption}
-              headerType={"status"}
+              headerType={"client"}
               classes={classes}
               isAdmin={isAdmin}
               addOptionModalToggle={addOptionModalToggle}

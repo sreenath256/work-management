@@ -10,7 +10,7 @@ import { liveUpdationStatusPriorityHeaderAtom } from '../../../recoil/atoms/live
 import { useSetRecoilState } from 'recoil';
 
 
-export const AddDynamicOptionComponent = ({ projectId, dynamicSelectFieldType, dynamicFieldModalHandler, setStatusGroup, setPriorityGroup }) => {
+export const AddDynamicOptionComponent = ({ projectId, dynamicSelectFieldType, dynamicFieldModalHandler, setStatusGroup, setPriorityGroup,setClientGroup }) => {
     const [addOptionError, setAddOptionError] = useState("")
     const [loading, setLoading] = useState(false)
 

@@ -10,6 +10,7 @@ import notificationRoutes from './notificationRoutes.js';
 import headerRoutes from './headerRoutes.js';
 import statusRoutes from './statusRoutes.js';
 import priorityRoutes from './priorityRoutes.js';
+import clientRoutes from './clientRoutes.js';
 
 
 const routes = (app)=>{
@@ -24,6 +25,7 @@ const routes = (app)=>{
     app.use('/api/headers',authMiddleware,headerRoutes());
     app.use('/api/status',authMiddleware,statusRoutes());
     app.use('/api/priority',authMiddleware,priorityRoutes());
+    app.use('/api/client',authMiddleware,clientRoutes());
 }
 
 export default routes

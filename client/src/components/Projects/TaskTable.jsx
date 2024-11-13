@@ -61,6 +61,7 @@ export const TaskTable = ({
   onDrop,
   index,
   taskCount,
+  clientGroup,
 }) => {
   const user = useRecoilValue(userDataAtom);
   const setSelectedProject = useSetRecoilState(currentProjectAtom);
@@ -429,10 +430,10 @@ export const TaskTable = ({
                   {singleTable?.headers?.map((header) => {
                     if (header.key === "task") {
                       return;
-                    }  else if (header.key === "status") {
+                    } else if (header.key === "status") {
                       return (
                         <th key={header._id} className="w-36 border-l pt-2">
-                          Status  
+                          Status
                         </th>
                       );
                     } else if (header.key === "dueDate") {
@@ -473,22 +474,6 @@ export const TaskTable = ({
                     if (header.key === "task") {
                       return;
                     } else if (header.key === "status") {
-                      return (
-                        <td key={header._id} className="border-l p-0">
-                          <div className="h-full flex p-1">
-                            {taskStatus?.map((eachOption, index) => (
-                              <OptionsConsolidationComp
-                                key={index}
-                                index={index}
-                                taskCount={singleTable?.subTasks?.length}
-                                eachOption={eachOption}
-                                optionGroup={statusGroup}
-                              />
-                            ))}
-                          </div>
-                        </td>
-                      );
-                    }else if (header.key === "status") {
                       return (
                         <td key={header._id} className="border-l p-0">
                           <div className="h-full flex p-1">
@@ -611,6 +596,7 @@ export const TaskTable = ({
                   classes={classes}
                   headers={singleTable.headers}
                   statusGroup={statusGroup}
+                  clientGroup={clientGroup}
                   priorityGroup={priorityGroup}
                   dueDateChanger={dueDateChanger}
                   selectedSubTasks={selectedSubTasks}

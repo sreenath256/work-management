@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import {
   dueDateUpdate,
   dynamicFieldUpdate,
+  getAllClients,
   getAllHeaders,
   getAllPriorityOptions,
   getAllStatusOptions,
@@ -13,6 +14,7 @@ import {
 import { TaskTable } from "../components/Projects/TaskTable";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  clientOptionsAtom,
   currentProjectAtom,
   currentProjectCopyAtom,
   filterStatusAtom,
@@ -56,6 +58,7 @@ const Work = () => {
   const setHeaders = useSetRecoilState(projectHeadersAtom);
   const setIsFiltered = useSetRecoilState(filterStatusAtom);
   const [statusGroup, setStatusGroup] = useRecoilState(statusOptionsAtom);
+  const [clientGroup, setClientGroup] = useRecoilState(clientOptionsAtom);
   const [priorityGroup, setPriorityGroup] = useRecoilState(priorityOptionsAtom);
   const setPermittedHeaders = useSetRecoilState(permittedHeadersAtom);
 
@@ -225,15 +228,15 @@ const Work = () => {
   const getSelectedProject = async () => {
     setIsLoading(true);
 
-    const [project, status, priority, permissions, allHeaders] =
+    const [project, status, priority, permissions, allHeaders, allClients] =
       await Promise.all([
         getSingleProjectIndividual(state.id),
         getAllStatusOptions(),
         getAllPriorityOptions(),
         getPermittedHeaders(),
         getAllHeaders(),
+        getAllClients(),
       ]);
-    console.log(allHeaders);
 
     if (project?.status) {
       setSelectedProject(project.data);
@@ -252,14 +255,15 @@ const Work = () => {
     if (allHeaders?.status) {
       setHeaders(allHeaders.data);
     }
+    if (allClients?.status) {
+      setClientGroup(allClients.data);
+    }
     setIsLoading(false);
-    console.log("From getSelected Project", project);
   };
 
   useEffect(() => {
     getSelectedProject();
 
-    console.log(state.id);
   }, []);
 
   const formHandler = () => {
@@ -496,7 +500,6 @@ const Work = () => {
   const handleSortToggle = () => setOpenSort((previous) => !previous);
 
   const sortTasks = (method) => {
-    console.log(selectedProject);
 
     setSelectedProject((previous) =>
       previous
@@ -536,7 +539,6 @@ const Work = () => {
       return;
     }
 
-    console.log("start date ", startDate);
 
     const isDateInRange = (date, startDate, endDate) => {
       // console.log("start date", startDate.format());
@@ -797,6 +799,7 @@ const Work = () => {
                 updateDynamicField={updateDynamicField}
                 addOptionModalToggle={addOptionModalToggle}
                 statusGroup={statusGroup}
+                clientGroup={clientGroup}
                 priorityGroup={priorityGroup}
                 currentSubTaskPeopleModalHandler={
                   currentSubTaskPeopleModalHandler

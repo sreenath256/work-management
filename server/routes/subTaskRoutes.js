@@ -10,6 +10,11 @@ const subTaskRoutes = ()=>{
     router.patch('/updateName/:projectId',permissionMiddleware("task"),controllers.updateSubTaskName)
     router.patch('/updateNote/:projectId',permissionMiddleware("notes"),controllers.updateSubTaskNote)
     router.patch('/updateStatus/:projectId',permissionMiddleware("status"),controllers.updateSubTaskStatus)
+
+
+    router.patch('/updateClient/:projectId',permissionMiddleware("priority"),controllers.updateSubTaskClient) 
+
+
     router.patch('/updatePriority/:projectId',permissionMiddleware("priority"),controllers.updateSubTaskPriority)
     router.patch('/updateDueDate/:projectId',permissionMiddleware("dueDate"),controllers.updateDueDate)
     router.patch('/updateField/:projectId',permissionMiddleware("dynamic"),controllers.updateDynamicField)

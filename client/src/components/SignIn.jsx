@@ -38,7 +38,6 @@ export const SignIn = () => {
     }),
     onSubmit: async (values) => {
       const response = await signIn(values)
-      console.log(response,"From setUser");
       
       if (response?.status) {
         setToken(response.token)

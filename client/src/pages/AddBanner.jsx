@@ -9,9 +9,8 @@ import { Banner } from "../components/Settings/Banner";
 import { useState } from "react";
 import { AddClient } from "../components/AddClient/AddClient";
 import AddClients from "./AddClients";
-import AddBanner from "./AddBanner";
 
-const Settings = () => {
+const AddBanner = () => {
   const [openBannerModal, setOpenBannerModal] = useState(false);
 
   const openBannerModalHandler = () => {
@@ -19,11 +18,8 @@ const Settings = () => {
   };
 
   return (
-    <div className="mt-16 p-8 w-full flex justify-start h-[calc(100vh-4.5rem)] overflow-y-hidden">
-      <AddBanner />
-      <AddClients />
-
-      {/* <Button
+    <div className="p-8">
+      <Button
         onClick={openBannerModalHandler}
         className="capitalize bg-maingreenhvr"
         variant="filled"
@@ -41,9 +37,9 @@ const Settings = () => {
         </Typography>
 
         <Banner />
-      </Dialog> */}
+      </Dialog>
     </div>
   );
 };
 
-export default Settings;
+export default AddBanner;

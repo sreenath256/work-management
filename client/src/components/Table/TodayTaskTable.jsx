@@ -11,7 +11,6 @@ const TodayTaskTable = ({ task }) => {
       try {
         setIsLoading(true);
         const res = await baseURL.get(`/user/getSingleUser/${personId}`);
-        console.log(res.data);
 
         setUser(res.data.data);
       } catch (err) {

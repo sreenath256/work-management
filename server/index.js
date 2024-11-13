@@ -5,26 +5,27 @@ import mongoDBConnect from './config/dbConnection.js';
 import expressConfig from './middlewares/expressMiddlewares.js'
 // import errorHandler from './middlewares/errorHandler.js'
 import routes from './routes/index.js'
-import {Server} from 'socket.io'
+import { Server } from 'socket.io'
 import { fileURLToPath } from 'url';
-import path,{dirname} from 'path'
+import path, { dirname } from 'path'
 import socketConfig from './routes/socketRoute.js';
 import configKeys from './config/configKeys.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename); 
+const __dirname = dirname(__filename);
+
 
 const app = express();
 const server = http.createServer(app)
 
 // Socket CORS config
-const io = new Server(server,{
-    cors:{
+const io = new Server(server, {
+    cors: {
         origin: [
             configKeys.CLIENT_URL
         ],
-        methods: ['GET','POST']
+        methods: ['GET', 'POST']
     }
 })
 

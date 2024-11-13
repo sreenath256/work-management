@@ -68,18 +68,7 @@ export const SingleHeader = ({
     };
   }, []);
 
-  return name === "task" ? (
-    <th
-      style={{ width: `${headerWidth}` }}
-      className={`${classes} sticky z-10 left-14 bg-white text-black text-base font-medium outline outline-1 outline-blue-gray-200`}
-    >
-      Task
-      <div
-        ref={widthRef}
-        className="bg-transparent cursor-col-resize absolute top-0 right-0 h-full w-[0.1rem] hover:bg-green-500"
-      ></div>
-    </th>
-  ) : (
+  return (
     <th
       style={{ width: `${headerWidth}` }}
       className={`${classes} relative capitalize text-black text-base font-medium`}

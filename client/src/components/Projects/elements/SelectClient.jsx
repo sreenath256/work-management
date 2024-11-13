@@ -5,8 +5,9 @@ import {
   projectHeadersAtom,
 } from "../../../recoil/atoms/projectAtoms";
 import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
-export const SelectComponent = ({
+const SelectClient = ({
   currentValue,
   valueGroup,
   updateSubTaskOption,
@@ -30,6 +31,8 @@ export const SelectComponent = ({
   const isNotAllowed = permittedHeaders?.some(
     (head) => head.key === headerType
   );
+
+  const navigate = useNavigate();
   const isAccess = isAdmin
     ? true
     : isNotAllowed
@@ -53,7 +56,7 @@ export const SelectComponent = ({
     setCurrentColor(
       valueGroup?.length
         ? valueGroup.find((single) => single.option === currentValue)?.color
-        : ""
+        : "#9C2800"
     );
   }, [currentValue]);
 
@@ -65,21 +68,23 @@ export const SelectComponent = ({
   }, []);
 
   const openOptionModal = () => {
-    addOptionModalToggle(headerType);
+    navigate('/settings')
   };
 
   const changeOption = (option) => {
-    setCurrentOption(option.option);
+    setCurrentOption(option.client);
     setCurrentColor(option.color);
     setIsOpen(true);
-    updateSubTaskOption(headerType, option.option);
+    updateSubTaskOption(headerType, option.client);
+    console.log("HeaderType", headerType);
+    console.log("Option", option.client);
   };
 
   return (
     <td
       onClick={toggleDropdown}
       ref={dropdownRef}
-      style={{ backgroundColor: `${currentColor}` }}
+      style={{ backgroundColor: currentOption ? ` #9C2800` : "white" }}
       className={`${classes} relative cursor-pointer capitalize text-white text-nowrap text-center w-36`}
     >
       {currentOption}
@@ -93,10 +98,10 @@ export const SelectComponent = ({
                   width: `${buttonWidth}`,
                   backgroundColor: `${options.color}`,
                 }}
-                className={`text-white hover:bg-opacity-80 rounded min-w-32 px-2 py-1.5`}
+                className={`text-white hover:bg-opacity-80 rounded min-w-32 px-2 py-1.5 `}
                 key={index}
               >
-                {options.option}
+                {options.client}
               </div>
             ))}
           </div>
@@ -112,3 +117,4 @@ export const SelectComponent = ({
   );
 };
 
+export default SelectClient;

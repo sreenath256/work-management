@@ -39,6 +39,14 @@ const subTaskHelpers = {
             throw error;
         }
     },
+    updateSubTaskClient:async(value)=>{
+        try {
+            return await SubTaskModel.updateOne({_id:value.subTaskId},{$set:{client:value.client}});
+        } catch (error) {
+            console.error('Error updating client:', error);
+            throw error;
+        }
+    },
     updateSubTaskPriority:async(value)=>{
         try {
             return await SubTaskModel.updateOne({_id:value.subTaskId},{$set:{priority:value.priority}});

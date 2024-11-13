@@ -6,7 +6,6 @@ import { Typography } from "@material-tailwind/react";
 const Profile = () => {
   const [user, setUser] = useRecoilState(userDataAtom);
 
-  console.log("Log user from  ", user);
 
   return (
     <div className="mt-16 p-8 w-full h-[calc(100vh-4.5rem)] overflow-y-hidden bg-[#ffffffb9]">

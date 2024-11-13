@@ -17,6 +17,7 @@ export const getAllProjects = async () => {
 export const getSingleProject = async (projectId) => {
     try {
         const response = await baseURL.get(`/tasks/getSingleProject/${projectId}`);
+
         if (response) {
             return response.data;
         }
@@ -28,7 +29,7 @@ export const getSingleProject = async (projectId) => {
 export const getSingleProjectIndividual = async (projectId) => {
     try {
         const response = await baseURL.get(`/tasks/getSingleProjectIndivitual/${projectId}`);
-        
+
         if (response) {
             return response.data;
         }
@@ -82,9 +83,21 @@ export const getAllHeaders = async () => {
     }
 }
 
-export const updateSingleHeaderWidth = async (key,name,width) => {
+export const getAllClients = async () => {
     try {
-        const response = await baseURL.patch(`/headers/updateHeaderWidth`,{key,name,width});
+        const response = await baseURL.get("/client/getAllClients");
+        if (response) {
+            return response.data
+        }
+    } catch (error) {
+        console.error(`Error getting clients : ${error.message}`);
+        toast.error(error.message);
+    }
+}
+
+export const updateSingleHeaderWidth = async (key, name, width) => {
+    try {
+        const response = await baseURL.patch(`/headers/updateHeaderWidth`, { key, name, width });
         if (response) {
             return response.data;
         }
@@ -118,9 +131,9 @@ export const addTask = async (taskData) => {
     }
 }
 
-export const addSingleSubTask = async (taskId,taskName) => {
+export const addSingleSubTask = async (taskId, taskName) => {
     try {
-        const response = await baseURL.post(`/subTasks/addSubTask`, { taskId,taskName });
+        const response = await baseURL.post(`/subTasks/addSubTask`, { taskId, taskName });
         if (response) {
             return response.data;
         }
@@ -130,7 +143,7 @@ export const addSingleSubTask = async (taskId,taskName) => {
     }
 }
 
-export const updateTaskName = async (projectId,taskId, name) => {
+export const updateTaskName = async (projectId, taskId, name) => {
     try {
         const response = await baseURL.patch(`/tasks/updateName`, { projectId, taskId, name });
         if (response) {
@@ -174,6 +187,21 @@ export const updateStatus = async (projectId, subTaskId, status) => {
         }
     } catch (error) {
         console.error(`Error updating status: ${error.message}`);
+        toast.error(error.message)
+    }
+}
+
+export const updateClient = async (projectId, subTaskId, client) => {
+    try {
+        const response = await baseURL.patch(`/subTasks/updateClient/${projectId}`, { subTaskId, client });
+        console.log(response,"From the updateclient method");
+        
+        if (response) {
+            return response.data;
+        }
+    } catch (error) {
+        alert("Error ")
+        console.error(`Error updating client: ${error.message}`);
         toast.error(error.message)
     }
 }
@@ -226,9 +254,9 @@ export const subTaskToPerson = async (projectId, subTaskId, peopleId, assignee, 
     }
 }
 
-export const removeATask = async (projectId,taskId,taskName) => {
+export const removeATask = async (projectId, taskId, taskName) => {
     try {
-        const response = await baseURL.put(`/tasks/removeTask/${projectId}`,{taskId,taskName});
+        const response = await baseURL.put(`/tasks/removeTask/${projectId}`, { taskId, taskName });
         if (response) {
             return response.data;
         }
@@ -298,7 +326,7 @@ export const projectSubTaskDnD = async (projectSubTaskDnd) => {
     }
 }
 
-export const addDynamicStatusOption = async (projectId,option) => {
+export const addDynamicStatusOption = async (projectId, option) => {
     try {
         const response = await baseURL.post(`/status/addOption/${projectId}`, option);
         if (response) {
@@ -309,7 +337,7 @@ export const addDynamicStatusOption = async (projectId,option) => {
         toast.error(error.message)
     }
 }
-export const addDynamicPriorityOption = async (projectId,option) => {
+export const addDynamicPriorityOption = async (projectId, option) => {
     try {
         const response = await baseURL.post(`/priority/addOption/${projectId}`, option);
         if (response) {

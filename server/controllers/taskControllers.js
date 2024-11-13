@@ -54,7 +54,9 @@ const taskControllers = () => {
 
     const getSingleProject = async (req, res) => {
         try {
+            
             const { projectId } = req.params
+            console.log("Logging from get single project project id is",projectId);
             const { id } = req.payload
             console.log("Requested user id", id);
 

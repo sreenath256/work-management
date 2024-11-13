@@ -131,7 +131,7 @@ const MyWorks = () => {
                   key={project._id}
                   project={project}
                   projectUpdationHandler={projectUpdationHandler}
-                  navigatePath='work'
+                  navigatePath="work"
                 />
               ))
             : null}

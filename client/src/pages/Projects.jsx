@@ -28,6 +28,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   dueDateUpdate,
   dynamicFieldUpdate,
+  getAllClients,
   getAllHeaders,
   getAllPriorityOptions,
   getAllStatusOptions,
@@ -48,6 +49,7 @@ import {
   projectHeadersAtom,
   subTaskNameSearchAtom,
   personFilterAtom,
+  clientOptionsAtom,
 } from "../recoil/atoms/projectAtoms";
 import { FormComponent } from "../components/Home/FormComponent";
 import { toast } from "react-toastify";
@@ -80,6 +82,7 @@ const Projects = () => {
   const setHeaders = useSetRecoilState(projectHeadersAtom);
   const setIsFiltered = useSetRecoilState(filterStatusAtom);
   const [statusGroup, setStatusGroup] = useRecoilState(statusOptionsAtom);
+  const [clientGroup, setClientGroup] = useRecoilState(clientOptionsAtom);
   const [priorityGroup, setPriorityGroup] = useRecoilState(priorityOptionsAtom);
   const setPermittedHeaders = useSetRecoilState(permittedHeadersAtom);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -265,15 +268,17 @@ const Projects = () => {
 
   const getSelectedProject = async () => {
     setIsLoading(true);
-    const [project, status, priority, permissions, allHeaders] =
+    const [project, status, priority, permissions, allHeaders, allClients] =
       await Promise.all([
         getSingleProject(state?.id),
         getAllStatusOptions(),
         getAllPriorityOptions(),
         getPermittedHeaders(),
         getAllHeaders(),
+        getAllClients(),
       ]);
 
+    console.log("Clients =>", allClients);
     console.log("Project =>", project);
     console.log("Status =>", status);
     console.log("priority =>", priority);
@@ -286,6 +291,13 @@ const Projects = () => {
     }
     if (status?.status) {
       setStatusGroup(status.data);
+    }
+    if (allClients?.status) {
+      setClientGroup(allClients.data);
+
+      
+      console.log("Setting all client to client group",clientGroup);
+      
     }
     if (priority?.status) {
       setPriorityGroup(priority.data);
@@ -1037,6 +1049,7 @@ const Projects = () => {
                   updateDynamicField={updateDynamicField}
                   addOptionModalToggle={addOptionModalToggle}
                   statusGroup={statusGroup}
+                  clientGroup={clientGroup}
                   priorityGroup={priorityGroup}
                   currentSubTaskPeopleModalHandler={
                     currentSubTaskPeopleModalHandler
@@ -1133,6 +1146,7 @@ const Projects = () => {
           dynamicFieldModalHandler={dynamicFieldModalHandler}
           setStatusGroup={setStatusGroup}
           setPriorityGroup={setPriorityGroup}
+          setClientGroup={setClientGroup}
         />
       </Dialog>
 
